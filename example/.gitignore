@@ -1,2 +1,3 @@
 *.png
 *.xml
+!screen.png

@@ -70,8 +70,14 @@ Export page-index 0 to 00.png
 drawio --export --page-index 0 temp.xml --output 00.png
 ```
 
-## Output example
+## Output Example
 
-This .gif was created from [example/schoolRISCV.drawio](example/schoolRISCV.drawio) using [example/Makefile](example/Makefile) script:
+A simple layer management script like [example/Makefile](example/Makefile) can be used to convert [example/schoolRISCV.drawio](example/schoolRISCV.drawio) to a .gif.
+
+### Input
+
+![screen.png](example/screen.png)
+
+### Output
 
 ![schoolRISCV.gif](example/schoolRISCV.gif)
