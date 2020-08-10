@@ -1,20 +1,13 @@
 
-DRAWIO_SRC = schoolRISCV.drawio
-DRAWIO_BIN = drawio
-D_LAYER_PY = . venv/bin/activate && $(CURDIR)/../drawio-layer.py
-
-gui:
-	$(DRAWIO_BIN) $(DRAWIO_SRC)
+# Copyright (c) 2020, Stanislav Zhelnio
+# SPDX-License-Identifier: MIT
 
 ####################################################
-# layer by layer image generation
+# common targets
 
-TEMP_XML = temp.xml
 FILE_PNG = $(shell seq -f "%02g.png" 0 24) # 00.png..24.png
 FILE_GIF = schoolRISCV.gif
-
-$(FILE_GIF): $(FILE_PNG)
-	convert -delay 150 -loop 0 $(FILE_PNG) $@
+TEMP_XML = temp.xml
 
 all: $(FILE_PNG) $(FILE_GIF)
 
@@ -23,11 +16,27 @@ clean:
 	rm -f *.png *.gif
 	rm -rf venv
 
+# create python venv
 venv:
 	python3 -m venv venv
 	. venv/bin/activate; \
 	pip install pip --upgrade; \
 	pip install -r $(CURDIR)/../requirements.txt
+
+DRAWIO_SRC = schoolRISCV.drawio
+DRAWIO_BIN = drawio
+D_LAYER_PY = . venv/bin/activate && $(CURDIR)/../drawio-layer.py
+
+# run draw.io gui
+gui:
+	$(DRAWIO_BIN) $(DRAWIO_SRC)
+
+# create gif from png
+$(FILE_GIF): $(FILE_PNG)
+	convert -delay 150 -loop 0 $(FILE_PNG) $@
+
+####################################################
+# layer by layer image generation
 
 LAYERS_00_0 = 0_border_wide 0_cpuState
 LAYERS_00_1 = $(LAYERS_00_0) 0_DataMemory
