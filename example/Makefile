@@ -9,11 +9,11 @@ FILE_PNG = $(shell seq -f "%02g.png" 0 24) # 00.png..24.png
 FILE_GIF = schoolRISCV.gif
 TEMP_XML = temp.xml
 
-all: $(FILE_PNG) $(FILE_GIF)
+all: venv $(FILE_PNG) $(FILE_GIF)
 
 clean:
 	rm -f $(TEMP_XML)
-	rm -f *.png *.gif
+	rm -f $(FILE_PNG)
 	rm -rf venv
 
 # create python venv
@@ -25,7 +25,7 @@ venv:
 
 DRAWIO_SRC = schoolRISCV.drawio
 DRAWIO_BIN = drawio
-D_LAYER_PY = . venv/bin/activate && $(CURDIR)/../drawio-layer.py
+D_LAYER_PY = . venv/bin/activate && drawio-layer
 
 # run draw.io gui
 gui:
