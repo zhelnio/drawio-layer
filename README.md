@@ -5,11 +5,11 @@ Allows to list/show/hide layers on diagram page
 ## Usage
 
 ```
-$ ./drawio-layer.py -h
-usage: drawio-layer.py [-h] [-l] [-lv] [-lh] [-V] [-p PAGE_INDEX]
-                       [-n NAME [NAME ...]]
-                       [-t {idle,show,hide,show_only,hide_only}]
-                       file
+$ drawio-layer -h
+usage: drawio-layer [-h] [-l] [-lv] [-lh] [-V] [-p PAGE_INDEX]
+                    [-n NAME [NAME ...]]
+                    [-t {idle,show,hide,show_only,hide_only}]
+                    file
 
 Layer management script for github.com/jgraph/drawio
 
@@ -40,7 +40,7 @@ $ drawio --export --uncompressed --output temp.xml schoolRISCV.drawio
 
 List layers from page-index 0
 ```
-$ ./drawio-layer.py --list --page-index 0 temp.xml 
+$ drawio-layer --list --page-index 0 temp.xml 
 0_border_wide
 0_cpuState
 0_DataMemory
@@ -51,7 +51,7 @@ $ ./drawio-layer.py --list --page-index 0 temp.xml
 
 List layers from page-index 0 with visibility information:
 ```
-$ ./drawio-layer.py --list --verbose --page-index 0 temp.xml 
+$ drawio-layer --list --verbose --page-index 0 temp.xml 
 0_border_wide                   True
 0_cpuState                      True
 0_DataMemory                    False
@@ -62,7 +62,7 @@ $ ./drawio-layer.py --list --verbose --page-index 0 temp.xml
 
 Hide all the layers from page-index 0 except 0_border_wide 0_cpuState 0_DataMemory
 ```
-drawio-layer.py temp.xml --page-index 0 --action-type show_only --name 0_border_wide 0_cpuState 0_DataMemory
+drawio-layer temp.xml --page-index 0 --action-type show_only --name 0_border_wide 0_cpuState 0_DataMemory
 ```
 
 Export page-index 0 to 00.png

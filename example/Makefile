@@ -21,7 +21,7 @@ venv:
 	python3 -m venv venv
 	. venv/bin/activate; \
 	pip install pip --upgrade; \
-	pip install -r $(CURDIR)/../requirements.txt
+	pip install git+https://github.com/zhelnio/drawio-layer#egg=drawio-layer
 
 DRAWIO_SRC = schoolRISCV.drawio
 DRAWIO_BIN = drawio
