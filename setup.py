@@ -18,7 +18,7 @@ setup(
     py_modules = ['drawio-layer'],
     entry_points={
         "console_scripts": (
-            "drawio-layer = drawio-layer:__main__",
+            "drawio-layer = drawio-layer:main",
         )
     },
     install_requires=requirements,
