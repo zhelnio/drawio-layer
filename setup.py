@@ -16,6 +16,11 @@ setup(
     url="https://github.com/zhelnio/drawio-layer",
     packages=find_packages(),
     py_modules = ['drawio-layer'],
+    entry_points={
+        "console_scripts": (
+            "drawio-layer = drawio-layer:__main__",
+        )
+    },
     install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3.6",
