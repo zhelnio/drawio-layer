@@ -15,10 +15,10 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/zhelnio/drawio-layer",
     packages=find_packages(),
-    py_modules = ['drawio-layer'],
+    py_modules = ['drawio_layer'],
     entry_points={
         "console_scripts": [
-            r"drawio-layer = drawio-layer:main",
+            "drawio-layer = drawio_layer:main",
         ]
     },
     install_requires=requirements,
