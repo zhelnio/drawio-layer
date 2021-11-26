@@ -10,9 +10,11 @@ Tested with draw.io 13.6.2
 """
 
 import argparse
+from os import error
 import sys
 import xml.etree.ElementTree as ET
 from tabulate import tabulate
+import warnings
 
 actions = [
     "idle",
@@ -24,8 +26,10 @@ actions = [
 
 def main():
     args = parse_args()
-    check_file(args.file)
+    # check_file(args.file)
     tree = ET.parse(args.file)
+
+    check_tree(tree)
 
     # search for layers
     nodes = find_layers(tree, args.page_index)
@@ -68,15 +72,17 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def check_file(file_name:str):
-    msg = """This script works with uncompressed draw.io files: \
-The name of uncompressed draw.io file ends with '.xml' and can be exported from \
-'.drawio' in gui (https://drawio-app.com/extracting-the-xml-from-mxfiles) or from command line:
-   drawio --export --uncompressed --output diagram.xml ./diagram.drawio
-Uncompressed '.xml' can still be opened in draw.io:
-   drawio diagram.xml"""
+def check_tree(tree):
+    msg = """This script works with uncompressed draw.io files: You can set it in drawio GUI: File -> Properties"""
 
-    if file_name.endswith(".drawio"):
+    compressed = False
+    try:
+        root = tree.getroot()
+        compressed = root.attrib['compressed']!="false"
+    except:
+        compressed = True
+
+    if(compressed):
         sys.exit(msg)
 
 def find_layers(tree, page_index):
@@ -120,12 +126,14 @@ def layers_print(data, verbose=False):
 
 def force_visibility(nodes=[], visible:bool=False, except_list=[], apply_list=[]):
     for node in nodes:
-        layer_name = node.attrib['value']
+        layer_name = get_layer_name(node)
 
-        if len(apply_list) > 0 and layer_name in apply_list:
+        if layer_name in apply_list and layer_name in except_list:
+            warnings.warn("%s is both in apply and except lists!")
+
+        elif ((len(apply_list) > 0 and layer_name in apply_list) or
+              (len(except_list) > 0 and layer_name not in except_list)):
             set_layer_visibility(node, visible)
-        else:
-            set_layer_visibility(node, visible != (layer_name in except_list))
 
 if __name__ == '__main__':
     main()
