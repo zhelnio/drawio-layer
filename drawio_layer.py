@@ -131,9 +131,11 @@ def force_visibility(nodes=[], visible:bool=False, except_list=[], apply_list=[]
         if layer_name in apply_list and layer_name in except_list:
             warnings.warn("%s is both in apply and except lists!")
 
-        elif ((len(apply_list) > 0 and layer_name in apply_list) or
-              (len(except_list) > 0 and layer_name not in except_list)):
+        elif len(apply_list) > 0 and layer_name in apply_list:
             set_layer_visibility(node, visible)
+        
+        elif len(except_list) > 0:
+            set_layer_visibility(node, visible != (layer_name in except_list))
 
 if __name__ == '__main__':
     main()
